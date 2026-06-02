@@ -6,12 +6,8 @@
 ## Команды
 
 - `npm install` — установка зависимостей
-- `npm run dev` — локальный сервер разработки
-- `npm run build` — сборка в папку `dist`
-- `npm run preview` — предпросмотр сборки
+- `npm run dev` — локальный сервер разработки (страница откроется в браузере)
+- `npm run build` — сборка проекта в папку `dist`
+- `npm run preview` — предпросмотр production-сборки
+- `npm run deploy` — сборка и публикация на GitHub Pages
 
-## Публикация на GitHub Pages
-
-Сайт публикуется автоматически при `push` в ветку `main` (workflow `.github/workflows/deploy.yml`).
-
-В настройках репозитория: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
