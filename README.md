@@ -1,5 +1,21 @@
-Стартовый набор для выполнения проектной работы Место
+# Проектная работа Mesto
 
-Для запуска приложения необходимо использовать live-server
-![изображение live-server](image.png)
-Live-server является расширением VSCode
+Ссылка на опубликованный проект: https://agregik.github.io/mesto-production/
+
+## Команды
+
+- `npm install` — установка зависимостей
+- `npm run dev` — локальный сервер разработки (страница откроется в браузере)
+- `npm run build` — сборка проекта в папку `dist`
+- `npm run preview` — предпросмотр production-сборки
+- `npm run deploy` — сборка и публикация на GitHub Pages
+
+## Деплой через GitHub Actions
+
+При `push` в ветку `main` workflow `.github/workflows/deploy.yml` собирает проект и публикует `dist` в публичный репозиторий.
+
+Необходимые секреты в приватном репозитории:
+
+- `PUBLIC_PAGES_TOKEN`
+- `PUBLIC_PAGES_REPO` (формат `owner/repository`)
+- `PUBLIC_PAGES_BRANCH` (опционально)
