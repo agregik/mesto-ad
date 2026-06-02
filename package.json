@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist -f"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/agregik/mesto-ad/issues"
   },
-  "homepage": "https://github.com/agregik/mesto-ad#readme",
+  "homepage": "https://agregik.github.io/mesto-ad/",
   "devDependencies": {
     "gh-pages": "^6.3.0",
     "vite": "^8.0.16"
