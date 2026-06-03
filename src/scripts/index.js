@@ -84,7 +84,9 @@ const isProfileDataChanged = () =>
   profileDescriptionInput.value !== profileDescription.textContent;
 
 const toggleProfileSubmitButton = () => {
-  if (!isProfileDataChanged()) {
+  const isFormValid = profileForm.checkValidity();
+  const isChanged = isProfileDataChanged();
+  if (!isFormValid || !isChanged) {
     profileSubmitButton.classList.add(validationConfig.inactiveButtonClass);
     profileSubmitButton.disabled = true;
   } else {
