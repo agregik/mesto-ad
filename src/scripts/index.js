@@ -25,6 +25,7 @@ const validationConfig = {
 };
 
 const placesWrap = document.querySelector(".places__list");
+
 const profileFormModalWindow = document.querySelector(".popup_type_edit");
 const profileForm = profileFormModalWindow.querySelector(".popup__form");
 const profileTitleInput = profileForm.querySelector(".popup__input_type_name");
@@ -58,7 +59,6 @@ const removeCardForm = removeCardModalWindow.querySelector(".popup__form");
 const removeCardSubmitButton = removeCardForm.querySelector(".popup__button");
 
 const infoModalWindow = document.querySelector(".popup_type_info");
-const infoModalTitle = infoModalWindow.querySelector(".popup__title");
 const infoModalDescriptionList = infoModalWindow.querySelector(".popup__info");
 const infoModalUsersTitle = infoModalWindow.querySelector(".popup__text");
 const infoModalUsersList = infoModalWindow.querySelector(".popup__list");
@@ -87,6 +87,9 @@ const toggleProfileSubmitButton = () => {
   if (!isProfileDataChanged()) {
     profileSubmitButton.classList.add(validationConfig.inactiveButtonClass);
     profileSubmitButton.disabled = true;
+  } else {
+    profileSubmitButton.classList.remove(validationConfig.inactiveButtonClass);
+    profileSubmitButton.disabled = false;
   }
 };
 
@@ -136,6 +139,7 @@ const handlePreviewPicture = ({ name, link }) => {
 
 function handleLikeClick(cardData, likeButton, likeCounter) {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
+
   changeLikeCardStatus(cardData._id, isLiked)
     .then((updatedCard) => {
       likeButton.classList.toggle("card__like-button_is-active", !isLiked);
@@ -160,17 +164,17 @@ function handleInfoClick(cardId) {
         return;
       }
 
-      infoModalTitle.textContent = cardData.name;
       infoModalDescriptionList.replaceChildren();
       infoModalUsersList.replaceChildren();
 
       infoModalDescriptionList.append(
-        createInfoString("Автор:", cardData.owner.name),
+        createInfoString("Описание:", cardData.name),
         createInfoString("Дата создания:", formatDate(new Date(cardData.createdAt))),
+        createInfoString("Владелец:", cardData.owner.name),
         createInfoString("Количество лайков:", String(cardData.likes.length))
       );
 
-      infoModalUsersTitle.textContent = "Пользователи, поставившие лайк:";
+      infoModalUsersTitle.textContent = "Лайкнули:";
 
       if (cardData.likes.length === 0) {
         infoModalUsersList.append(createUserBadge({ name: "Пока нет лайков" }));
@@ -190,6 +194,7 @@ function handleInfoClick(cardId) {
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   renderLoading(true, profileSubmitButton, "Сохранить", "Сохранение...");
+
   setUserInfo({
     name: profileTitleInput.value,
     about: profileDescriptionInput.value,
@@ -209,6 +214,7 @@ const handleProfileFormSubmit = (evt) => {
 const handleAvatarFormSubmit = (evt) => {
   evt.preventDefault();
   renderLoading(true, avatarSubmitButton, "Сохранить", "Сохранение...");
+
   setUserAvatar({ avatar: avatarInput.value })
     .then((userData) => {
       updateUserInfo(userData);
@@ -227,6 +233,7 @@ const handleAvatarFormSubmit = (evt) => {
 const handleCardFormSubmit = (evt) => {
   evt.preventDefault();
   renderLoading(true, cardSubmitButton, "Создать", "Создание...");
+
   createCard({
     name: cardNameInput.value,
     link: cardLinkInput.value,
@@ -253,6 +260,7 @@ const handleRemoveCardSubmit = (evt) => {
   }
 
   renderLoading(true, removeCardSubmitButton, "Да", "Удаление...");
+
   deleteCard(cardToDelete.id)
     .then(() => {
       cardToDelete.element.remove();

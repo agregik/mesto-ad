@@ -22,7 +22,6 @@
 @import url('./__list-item/popup__list-item.css');
 @import url('./__list-item/_type/popup__list-item_type_badge.css');
 
-
 .popup {
   font-family: 'Inter', Arial, sans-serif;
   display: flex;
@@ -34,10 +33,70 @@
   left: 0;
   bottom: 0;
   right: 0;
-  /*Стили для плавного появления модалки*/
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transition: visibility 0.3s, opacity 0.3s;
   z-index: 10;
+}
+
+.popup__content_content_info {
+  width: 100%;
+  max-width: 430px;
+  padding: 32px 32px 28px;
+  box-sizing: border-box;
+}
+
+.popup__title_type_info {
+  margin: 0 0 22px;
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: left;
+}
+
+.popup__info {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.popup__info-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.popup__info-term {
+  margin: 0;
+  font-weight: 700;
+  background: #e5e5e5;
+  padding: 0 4px;
+}
+
+.popup__info-description {
+  margin: 0;
+}
+
+.popup__text {
+  margin: 20px 0 12px;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.popup__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.popup__list-item_type_badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #e5e5e5;
 }
