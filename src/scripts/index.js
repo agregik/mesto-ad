@@ -1,4 +1,4 @@
-import { createCardElement } from "./components/card.js";
+import { createCardElement, updateLikeUI, removeCardElement } from "./components/card.js";
 import {
   openModalWindow,
   closeModalWindow,
@@ -126,7 +126,6 @@ const renderCard = (cardData, appendMode = "append") => {
     placesWrap.prepend(cardElement);
     return;
   }
-
   placesWrap.append(cardElement);
 };
 
@@ -137,13 +136,10 @@ const handlePreviewPicture = ({ name, link }) => {
   openModalWindow(imageModalWindow);
 };
 
-function handleLikeClick(cardData, likeButton, likeCounter) {
-  const isLiked = likeButton.classList.contains("card__like-button_is-active");
-
+function handleLikeClick(cardData, likeButton, likeCounter, isLiked) {
   changeLikeCardStatus(cardData._id, isLiked)
     .then((updatedCard) => {
-      likeButton.classList.toggle("card__like-button_is-active", !isLiked);
-      likeCounter.textContent = updatedCard.likes.length;
+      updateLikeUI(likeButton, likeCounter, updatedCard, currentUserId);
     })
     .catch((err) => {
       console.log(err);
@@ -159,10 +155,7 @@ function handleInfoClick(cardId) {
   getCardList()
     .then((cards) => {
       const cardData = cards.find((card) => card._id === cardId);
-
-      if (!cardData) {
-        return;
-      }
+      if (!cardData) return;
 
       infoModalDescriptionList.replaceChildren();
       infoModalUsersList.replaceChildren();
@@ -175,7 +168,6 @@ function handleInfoClick(cardId) {
       );
 
       infoModalUsersTitle.textContent = "Лайкнули:";
-
       if (cardData.likes.length === 0) {
         infoModalUsersList.append(createUserBadge({ name: "Пока нет лайков" }));
       } else {
@@ -254,16 +246,13 @@ const handleCardFormSubmit = (evt) => {
 
 const handleRemoveCardSubmit = (evt) => {
   evt.preventDefault();
-
-  if (!cardToDelete.id || !cardToDelete.element) {
-    return;
-  }
+  if (!cardToDelete.id || !cardToDelete.element) return;
 
   renderLoading(true, removeCardSubmitButton, "Да", "Удаление...");
 
   deleteCard(cardToDelete.id)
     .then(() => {
-      cardToDelete.element.remove();
+      removeCardElement(cardToDelete.element);
       cardToDelete = { id: "", element: null };
       closeModalWindow(removeCardModalWindow);
     })

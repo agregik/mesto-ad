@@ -29,7 +29,10 @@ export const createCardElement = (
   }
 
   if (onLikeIcon) {
-    likeButton.addEventListener("click", () => onLikeIcon(cardData, likeButton, likeCounter));
+    likeButton.addEventListener("click", () => {
+      const isLiked = likeButton.classList.contains("card__like-button_is-active");
+      onLikeIcon(cardData, likeButton, likeCounter, isLiked);
+    });
   }
 
   if (!isOwnCard) {
@@ -49,4 +52,18 @@ export const createCardElement = (
   }
 
   return cardElement;
+};
+
+export const updateLikeUI = (likeButton, likeCounter, updatedCard, currentUserId) => {
+  likeCounter.textContent = updatedCard.likes.length;
+  const isLikedByUser = updatedCard.likes.some((user) => user._id === currentUserId);
+  if (isLikedByUser) {
+    likeButton.classList.add("card__like-button_is-active");
+  } else {
+    likeButton.classList.remove("card__like-button_is-active");
+  }
+};
+
+export const removeCardElement = (cardElement) => {
+  cardElement.remove();
 };
