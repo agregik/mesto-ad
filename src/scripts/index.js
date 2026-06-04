@@ -79,22 +79,6 @@ const updateUserInfo = (userData) => {
   profileAvatar.style.backgroundImage = `url(${userData.avatar})`;
 };
 
-const isProfileDataChanged = () =>
-  profileTitleInput.value !== profileTitle.textContent ||
-  profileDescriptionInput.value !== profileDescription.textContent;
-
-const toggleProfileSubmitButton = () => {
-  const isFormValid = profileForm.checkValidity();
-  const isChanged = isProfileDataChanged();
-  if (!isFormValid || !isChanged) {
-    profileSubmitButton.classList.add(validationConfig.inactiveButtonClass);
-    profileSubmitButton.disabled = true;
-  } else {
-    profileSubmitButton.classList.remove(validationConfig.inactiveButtonClass);
-    profileSubmitButton.disabled = false;
-  }
-};
-
 const formatDate = (date) =>
   date.toLocaleDateString("ru-RU", {
     year: "numeric",
@@ -271,15 +255,10 @@ cardForm.addEventListener("submit", handleCardFormSubmit);
 avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 removeCardForm.addEventListener("submit", handleRemoveCardSubmit);
 
-profileForm.addEventListener("input", () => {
-  toggleProfileSubmitButton();
-});
-
 openProfileFormButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
   clearValidation(profileForm, validationConfig);
-  toggleProfileSubmitButton();
   openModalWindow(profileFormModalWindow);
 });
 
